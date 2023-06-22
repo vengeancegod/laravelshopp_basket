@@ -17,10 +17,10 @@ services:
           container_name: shop-db
           restart: unless-stopped
           environment:
-            MYSQL_ROOT_PASSWORD: passdsql123
-            MYSQL_PASSWORD: passdsql123
-            MYSQL_DATABASE: store
-            MYSQL_TCP_PORT: 3306
+            MYSQL_ROOT_PASSWORD: YOUR PASSWORD
+            MYSQL_PASSWORD: YOUR PASSWORD
+            MYSQL_DATABASE: YOUR DB_NAME
+            MYSQL_TCP_PORT: YOUR DB_PORT
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
           tty: true
