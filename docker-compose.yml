@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+      app:
+          build:
+              context: ./
+              dockerfile: Dockerfile
+          container_name: shop-app
+          restart: unless-stopped
+          working_dir: /var/www/
+          tty: true
+          volumes:
+              - ./:/var/www
+          networks:
+              - shop
+      db:
+          image: mysql:8.0.32
+          container_name: shop-db
+          restart: unless-stopped
+          environment:
+            MYSQL_ROOT_PASSWORD: passdsql123
+            MYSQL_PASSWORD: passdsql123
+            MYSQL_DATABASE: store
+            MYSQL_TCP_PORT: 3306
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+          tty: true
+          ports:
+              - 3307:3306
+          networks:
+              - shop
+      nginx:
+          image: nginx:1.17-alpine
+          container_name: shop-nginx
+          restart: unless-stopped
+          tty: true
+          ports:
+              - "9090:80"
+          volumes:
+              - ./:/var/www
+              - ./nginx.conf:/etc/nginx/nginx.conf
+          networks:
+              - shop
+networks:
+    shop:
+        driver: bridge
+
